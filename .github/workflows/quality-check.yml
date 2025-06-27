@@ -1,0 +1,53 @@
+# Nombre del flujo de trabajo que aparecerá en la pestaña "Actions" de GitHub.
+name: Quality Check
+
+# Define los eventos que dispararán este flujo de trabajo.
+on:
+  # Se ejecuta cuando se hace un push a la rama 'main'.
+  push:
+    branches: [main]
+  # Se ejecuta cuando se crea o actualiza un pull request dirigido a la rama 'main'.
+  pull_request:
+    branches: [main]
+
+# Define los trabajos (jobs) que se ejecutarán.
+jobs:
+  # Nombre del trabajo. Puedes llamarlo como quieras (e.g., build, test, analyze).
+  analyze:
+    # Especifica el sistema operativo en el que se ejecutará el trabajo.
+    # 'ubuntu-latest' es una opción común y recomendada para Flutter.
+    runs-on: ubuntu-latest
+
+    # Define la secuencia de pasos que componen el trabajo.
+    steps:
+      # 1. Checkout del código
+      # Este paso descarga una copia de tu repositorio en el runner de GitHub.
+      - uses: actions/checkout@v3
+
+      # 2. Configurar Flutter
+      # Este paso utiliza una acción predefinida ('subosito/flutter-action') para instalar el SDK de Flutter.
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          # ¡IMPORTANTE! Ajusta esta versión a la que usas en tu proyecto.
+          # Puedes verificarla con el comando 'flutter --version'.
+          flutter-version: '3.19.0'
+          channel: 'stable' # Opcional, pero buena práctica.
+
+      # 3. Instalar dependencias
+      # Ejecuta el comando 'flutter pub get' para descargar todos los paquetes
+      # listados en tu archivo pubspec.yaml.
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4. Analizar el código
+      # Ejecuta 'flutter analyze' para revisar el código en busca de errores, advertencias
+      # y problemas de estilo según las reglas de lint.
+      - name: Analyze
+        run: flutter analyze
+
+      # 5. Ejecutar las pruebas unitarias
+      # Ejecuta 'flutter test' para correr todos los archivos de prueba que terminen
+      # en '_test.dart' dentro de la carpeta 'test/'.
+      - name: Run tests
+        run: flutter test

@@ -15,20 +15,20 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0' # Asegúrate que esta versión sea la correcta para ti
+          flutter-version: '3.19.0'
           channel: 'stable'
 
       - name: Install dependencies
         # Le decimos a la acción que corra el comando dentro de esta carpeta
-        working-directory: ./asistenciacontrol # <<-- AÑADIR ESTA LÍNEA
+        working-directory: ./asistenciacontrol
         run: flutter pub get
 
       - name: Analyze
         # También aquí, para que analice el código correcto
-        working-directory: ./asistenciacontrol # <<-- AÑADIR ESTA LÍNEA
+        working-directory: ./asistenciacontrol
         run: flutter analyze
 
       - name: Run tests
         # Y finalmente aquí, para que encuentre y ejecute las pruebas
-        working-directory: ./asistenciacontrol # <<-- AÑADIR ESTA LÍNEA
+        working-directory: ./asistenciacontrol 
         run: flutter test

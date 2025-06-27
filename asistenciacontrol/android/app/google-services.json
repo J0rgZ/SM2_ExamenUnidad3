@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "422292074296",
+    "project_id": "asistencia-moviles2",
+    "storage_bucket": "asistencia-moviles2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422292074296:android:85054afd26a1390aee5bcd",
+        "android_client_info": {
+          "package_name": "com.example.asistenciacontrol"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLS1VrYIqsq33wQePPZtsMBsLew5m1zAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

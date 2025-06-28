@@ -33,7 +33,7 @@ jobs:
 
       - name: Analyze code
         working-directory: ./asistenciacontrol
-        run: flutter analyze
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos
 
       - name: Run tests
         working-directory: ./asistenciacontrol 

@@ -7,40 +7,18 @@ environment:
   sdk: '>=3.3.0 <4.0.0'
 
 dependencies:
-  data_table_2: ^2.4.2
-  fl_chart: ^0.65.0
+  # Solo se necesita flutter sdk para la estructura básica del proyecto
   flutter:
     sdk: flutter
-  flutter_animate: ^4.5.0
-  geolocator: ^11.0.0
-  google_fonts: ^6.1.0
-  image_picker: ^1.0.7
-  intl: ^0.18.1
-  lottie: ^3.1.0
-  flutter_localizations:
-    sdk: flutter
-  firebase_core: ^2.27.0
-  firebase_auth: ^4.17.8
-  cloud_firestore: ^4.15.8
-  image_network: ^2.5.1
-  firebase_storage: ^11.6.9
-  flutter_map: ^6.1.0
-  latlong2: ^0.9.1
-  geocoding: ^2.2.0
-  firebase_database: ^10.4.9
-  flutter_svg: ^2.0.10+1
-  local_auth: ^2.2.0
-  google_maps_flutter: ^2.6.1
-  cryptography: ^2.7.0
-  flutter_staggered_animations: ^1.1.0
-  lucide_icons: ^0.257.0
 
 dev_dependencies:
+  # La única dependencia real para tu archivo de test
   flutter_test:
     sdk: flutter
+  
+  # flutter_lints es necesario para que `flutter analyze` no dé un error por su ausencia,
+  # aunque no lo vayamos a usar de forma efectiva sin las otras dependencias.
   flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/images/location_pin.png

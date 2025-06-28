@@ -1,34 +1,58 @@
+# Nombre del flujo de trabajo
 name: Quality Check
 
+# Define cuándo se ejecutará este flujo de trabajo
 on:
+  # En cada push a la rama 'main'
   push:
     branches: [main]
+  # En cada pull request que apunte a la rama 'main'
   pull_request:
     branches: [main]
 
 jobs:
+  # El único trabajo en este flujo, llamado 'analyze'
   analyze:
+    # Se ejecutará en el último sistema Ubuntu disponible
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v3
+      # 1. Descarga el código de tu repositorio
+      - name: Checkout code
+        uses: actions/checkout@v4 # Usamos la v4 que es más reciente
 
+      # 2. Configura Java 11, requerido por tu build.gradle
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      # 3. Configura Flutter con una versión compatible con tu proyecto
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          # Tu pubspec.yaml usa una sintaxis moderna. Una versión reciente de Flutter es necesaria.
+          # 3.22.2 es una versión estable y reciente que será compatible.
+          flutter-version: '3.22.2'
           channel: 'stable'
+          # Habilitamos el caché para que las descargas sean más rápidas en futuras ejecuciones
+          cache: true
 
+      # 4. Instala las dependencias del proyecto
       - name: Install dependencies
-        # Le decimos a la acción que corra el comando dentro de esta carpeta
+        # Le decimos a la acción que corra el comando dentro de la carpeta de tu proyecto
         working-directory: ./asistenciacontrol
         run: flutter pub get
 
-      - name: Analyze
+      # 5. Analiza el código en busca de errores o advertencias
+      - name: Analyze code
         # También aquí, para que analice el código correcto
         working-directory: ./asistenciacontrol
         run: flutter analyze
 
+      # 6. Ejecuta las pruebas unitarias
       - name: Run tests
-        # Y finalmente aquí, para que encuentre y ejecute las pruebas
+        # Y finalmente aquí, para que encuentre y ejecute las pruebas en la carpeta correcta
         working-directory: ./asistenciacontrol 
         run: flutter test

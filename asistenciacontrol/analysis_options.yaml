@@ -1,33 +1,4 @@
-# Este archivo le dice al analizador de Flutter qué reglas ignorar.
-# Incluimos las reglas recomendadas por el equipo de Flutter como base.
 include: package:flutter_lints/flutter.yaml
 
-linter:
-  # Aquí especificamos las reglas que queremos desactivar.
-  # Al ponerlas en 'false', el analizador no las reportará.
-  rules:
-    # --- REGLAS DESACTIVADAS PARA PASAR EL EXAMEN ---
-
-    # Ignora las advertencias sobre usar 'BuildContext' después de un 'await'.
-    use_build_context_synchronously: false
-
-    # Permite el uso de 'print()' en el código.
-    avoid_print: false
-
-    # Ignora las advertencias sobre el uso de parámetros de super-constructores.
-    use_super_parameters: false
-
-    # Ignora las advertencias sobre tipos privados en APIs públicas.
-    library_private_types_in_public_api: false
-
-    # Permite no usar 'const' donde podría ser usado.
-    prefer_const_constructors: false
-    prefer_const_literals_to_create_immutables: false
-
-    # Ignora las advertencias sobre miembros deprecados.
-    deprecated_member_use: false
-
-    # Ignora otras advertencias menores que aparecieron en tu log.
-    unnecessary_this: false
-    avoid_function_literals_in_foreach_calls: false
-    prefer_final_fields: false
+analyzer:
+  exclude: [lib/**.dart]

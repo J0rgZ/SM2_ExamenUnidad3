@@ -14,14 +14,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Configura Java 11, requerido por tu build.gradle
       - name: Set up JDK 11
         uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
 
-      # Configura una versión de Flutter compatible
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -29,17 +27,14 @@ jobs:
           channel: 'stable'
           cache: true
 
-      # Instala TODAS las dependencias de tu proyecto real
       - name: Install dependencies
         working-directory: ./asistenciacontrol
         run: flutter pub get
 
-      # Analiza el código completo (ahora funcionará porque las dependencias están instaladas)
       - name: Analyze code
         working-directory: ./asistenciacontrol
         run: flutter analyze
 
-      # Ejecuta tus pruebas unitarias
       - name: Run tests
         working-directory: ./asistenciacontrol 
         run: flutter test

@@ -15,7 +15,8 @@ dependencies:
   geolocator: ^11.0.0
   google_fonts: ^6.1.0
   image_picker: ^1.0.7
-  intl: ^0.18.1
+  # --- ESTA ES LA LÍNEA QUE SE CORRIGIÓ ---
+  intl: ^0.19.0 # <-- Estaba en ^0.18.1, ahora es compatible con flutter_localizations
   lottie: ^3.1.0
   flutter_localizations:
     sdk: flutter

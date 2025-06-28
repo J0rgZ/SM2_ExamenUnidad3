@@ -1,33 +1,43 @@
-buildscript {
-    ext.kotlin_version = '1.8.22'
-    repositories {
-        google()
-        mavenCentral()
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
+}
+
+android {
+    namespace = "com.example.asistenciacontrol"
+    compileSdk = 34 // Usamos un valor fijo para evitar problemas
+    ndkVersion = "25.2.9519653" // Versión estándar con Android Studio moderno
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        // La dependencia de google-services se gestiona como plugin en app/build.gradle,
-        // por lo que no es necesaria aquí en la mayoría de los proyectos modernos.
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    defaultConfig {
+        applicationId = "com.example.asistenciacontrol"
+        minSdk = 21
+        targetSdk = 34 // Usamos un valor fijo
+        versionCode = 1
+        versionName = "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+flutter {
+    source = "../.."
 }
 
-rootProject.buildDir = '../build'
-subprojects {
-    project.buildDir = "${rootProject.buildDir}/${project.name}"
-}
-subprojects {
-    project.evaluationDependsOn(':app')
-}
-
-tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+dependencies {
+    // Las dependencias de Flutter se gestionan automáticamente
 }

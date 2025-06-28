@@ -1,21 +1,62 @@
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("dev.flutter.flutter-gradle-plugin")
+    id("com.google.gms.google-services")
+}
+
+val localProperties by lazy {
+    java.util.Properties().apply {
+        val localPropertiesFile = rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { load(it) }
+        }
     }
 }
 
-val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
-rootProject.layout.buildDirectory.value(newBuildDir)
+val flutterVersionCode: String by localProperties
+val flutterVersionName: String by localProperties
 
-subprojects {
-    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
-    project.layout.buildDirectory.value(newSubprojectBuildDir)
-}
-subprojects {
-    project.evaluationDependsOn(":app")
+android {
+    namespace = "com.example.asistenciacontrol"
+    compileSdk = 34
+    ndkVersion = "25.2.9519653"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/main/kotlin")
+        }
+    }
+
+    defaultConfig {
+        applicationId = "com.example.asistenciacontrol"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = flutterVersionCode.toInt()
+        versionName = flutterVersionName
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
 }
 
-tasks.register<Delete>("clean") {
-    delete(rootProject.layout.buildDirectory)
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Las dependencias de Flutter se gestionan automáticamente
 }
